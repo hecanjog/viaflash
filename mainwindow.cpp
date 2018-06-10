@@ -297,12 +297,12 @@ void MainWindow::dfuScanStatus()
         serString.append(outtxt.right(15));
         ui->dfuResultsTextEdit->append(serString.trimmed());
         ui->fileBrowseButton->setDisabled( false );
-        if (!m_haveRepo){
+//        if (!m_haveRepo){
             // get appropriate repo
             ui->dfuResultsTextEdit->append("fetching repository...");
             httpRepo = new FileDownloader(QUrl("https://raw.githubusercontent.com/smrl/viafirmware/master/manifest.json"), this);
             connect(httpRepo, SIGNAL (downloaded()), this, SLOT (getRepository()));
-        }
+//        }
     // Scroll to bottom
     ui->dfuResultsTextEdit->verticalScrollBar()->setValue( ui->dfuResultsTextEdit->verticalScrollBar()->maximum() );
     }
@@ -364,7 +364,7 @@ void MainWindow::on_flashButton_released()
 {
     if (m_local == false){
         downloadBinary(m_token);
-        selectedFirmware = (QString (m_token + ".bin"));
+        selectedFirmware = (QString (m_token + "_" + m_latestVersion + ".bin"));
         ui->dfuResultsTextEdit->append("downloading firmware from repository...");
         m_flashing = true;
     }
